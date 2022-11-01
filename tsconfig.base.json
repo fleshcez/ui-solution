@@ -14,7 +14,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@ui-solution/ui-library": ["libs/ui-library/src/index.ts"],
+      "@ui-solution/uif-framework-api-interface": [
+        "libs/uif-framework-api-interface/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

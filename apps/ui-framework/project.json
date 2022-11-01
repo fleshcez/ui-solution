@@ -1,0 +1,85 @@
+{
+  "name": "ui-framework",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/ui-framework/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/ui-framework",
+        "index": "apps/ui-framework/src/index.html",
+        "baseHref": "/",
+        "main": "apps/ui-framework/src/main.tsx",
+        "polyfills": "apps/ui-framework/src/polyfills.ts",
+        "tsConfig": "apps/ui-framework/tsconfig.app.json",
+        "assets": [
+          "apps/ui-framework/src/favicon.ico",
+          "apps/ui-framework/src/assets"
+        ],
+        "styles": ["apps/ui-framework/src/styles.scss"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/ui-framework/src/environments/environment.ts",
+              "with": "apps/ui-framework/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/webpack:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "ui-framework:build",
+        "hmr": true,
+        "proxyConfig": "apps/ui-framework/proxy.conf.json"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "ui-framework:build:development"
+        },
+        "production": {
+          "buildTarget": "ui-framework:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/ui-framework/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/ui-framework/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
