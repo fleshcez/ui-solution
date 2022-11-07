@@ -1,1 +1,29 @@
 /* Your styles goes here. */
+.grid-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    display: grid;
+    grid-template-rows: 64px 1fr;
+    grid-template-columns: auto 1fr;
+
+    .grid-header {
+        grid-column: 1 / 3;
+        grid-row: 1 / 2;
+        background: aquamarine;
+    }
+
+    .grid-side-nav {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+        background: beige;
+        overflow: hidden;
+    }
+
+    .grid-content {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3 ;
+        overflow: auto;
+    }
+}
