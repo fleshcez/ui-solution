@@ -5,14 +5,15 @@
 
 import * as express from 'express';
 import * as path from 'path';
-import { API_URL, ApiResponse } from "@ui-solution/uif-framework-api-interface";
+import { API_URL, IApp } from "@ui-solution/ui-framework-api-interface";
+import { appBuilder } from './app/appBuilder';
 
 const app = express();
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 app.get(API_URL, (req, res) => {
-  res.send({ message: 'Welcome to ui-framework-api!' } as ApiResponse);
+  res.send(appBuilder() as IApp);
 });
 
 const port = process.env.port || 3333;

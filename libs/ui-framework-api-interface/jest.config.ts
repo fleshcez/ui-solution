@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'uif-framework-api-interface',
+  displayName: 'ui-framework-api-interface',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -11,5 +11,5 @@ export default {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/libs/uif-framework-api-interface',
+  coverageDirectory: '../../coverage/libs/ui-framework-api-interface',
 };

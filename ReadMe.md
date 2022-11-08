@@ -36,4 +36,4 @@ npx nx serve ui-framework-api
 
 --------------
 add simple ts lib for api url used by both express server and uif-framework
-npx nx g @nrwl/workspace:lib uif-framework-api-interface
+npx nx g @nrwl/workspace:lib ui-framework-api-interface

@@ -13,6 +13,7 @@ import { useState } from 'react';
 export interface UiHeaderProps {
   onToggle: (open: boolean) => void;
   hasToggle?: boolean;
+  title?: string;
 }
 
 interface AppBarProps extends MuiAppBarProps {
@@ -37,7 +38,7 @@ function useHeader({ onToggle }: UiHeaderProps) {
 
 export function UiHeader(props: UiHeaderProps) {
   const { open, toggleOpen } = useHeader(props);
-  const { hasToggle } = props;
+  const { hasToggle, title } = props;
 
   return (
     // <HeadingStyled emphasized={true}/>
@@ -57,7 +58,7 @@ export function UiHeader(props: UiHeaderProps) {
           </IconButton>
         }
         <Typography variant="h6" noWrap component="div">
-          Mini variant drawer
+          { title }
         </Typography>
       </Toolbar>
     </AppBar>

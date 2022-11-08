@@ -10,10 +10,23 @@ import InboxIcon from '@mui/icons-material/Inbox';
 import MailIcon from '@mui/icons-material/Mail';
 
 import { CSSObject, styled, Theme } from '@mui/material/styles';
+import { IconType, IIcon, Nullable } from '@ui-solution/ui-framework-api-interface';
+
+
+export interface ISideNavItem {
+  label: string;
+  icon: IIcon;
+}
+interface ISideNav {
+  items: ISideNavItem;
+}
+
 
 /* eslint-disable-next-line */
 export interface UiSideNavProps {
   open: boolean;
+  items: Nullable<ISideNavItem[]>;
+  // onSelect: (selectedItem: ) => void;
 }
 
 const drawerWidth = 240;
@@ -59,17 +72,17 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export function UiSideNav({open}: UiSideNavProps) {
+export function UiSideNav({open, items}: UiSideNavProps) {
   return (
     <Drawer variant="permanent" open={open}>
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+          {items?.map(({label, icon}, index) => (
+            <ListItem key={label} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
+                  px: 1.5,
                 }}
               >
                 <ListItemIcon
@@ -79,14 +92,14 @@ export function UiSideNav({open}: UiSideNavProps) {
                     justifyContent: 'center',
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {icon.icon === IconType.inbox ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary={label} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
-        <Divider />
+        {/* <Divider />
         <List>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
@@ -94,7 +107,7 @@ export function UiSideNav({open}: UiSideNavProps) {
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
+                  px: 1.5,
                 }}
               >
                 <ListItemIcon
@@ -110,7 +123,7 @@ export function UiSideNav({open}: UiSideNavProps) {
               </ListItemButton>
             </ListItem>
           ))}
-        </List>
+        </List> */}
       </Drawer>
   );
 }

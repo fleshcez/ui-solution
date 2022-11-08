@@ -1,21 +1,21 @@
 {
-  "name": "uif-framework-api-interface",
+  "name": "ui-framework-api-interface",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/uif-framework-api-interface/src",
+  "sourceRoot": "libs/ui-framework-api-interface/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/uif-framework-api-interface/**/*.ts"]
+        "lintFilePatterns": ["libs/ui-framework-api-interface/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/uif-framework-api-interface/jest.config.ts",
+        "jestConfig": "libs/ui-framework-api-interface/jest.config.ts",
         "passWithNoTests": true
       }
     }

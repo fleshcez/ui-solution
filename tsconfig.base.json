@@ -16,8 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@ui-solution/ui-library": ["libs/ui-library/src/index.ts"],
-      "@ui-solution/uif-framework-api-interface": [
-        "libs/uif-framework-api-interface/src/index.ts"
+      "@ui-solution/ui-framework-api-interface": [
+        "libs/ui-framework-api-interface/src/index.ts"
       ]
     }
   },
