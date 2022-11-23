@@ -25,29 +25,43 @@ const {
 function useApp() {
   const [sideNavItems, setSideNavItems] = useState<ISideNavItem[]>();
   const [header, setHeader] = useState<IHeader>();
+  const [scenarios, setScenarios] = useState<IScenario[]>();
+  const [scenario, setScenario] = useState();
 
   useEffect(() => {
     fetch(API_URL)
       .then((r) => r.json())
       .then((result) => {
         const res = result as IApp;
-        // setScenarios(res.configuration.scenarios);
         const scenarios: IScenario[] = res.configuration.scenarios;
+        setScenarios(res.configuration.scenarios);
         setHeader(res.configuration.header);
         setSideNavItems(
           scenarios.map(
-            (sc) => ({ icon: sc.icon, label: sc.label } as ISideNavItem)
+            (sc) => ({ icon: sc.icon, label: sc.label, id: sc.id} as ISideNavItem)
           )
         );
       });
   }, []);
 
+  const onSidenavSelect = (sideNavItem: ISideNavItem) => {
+    const scenario = scenarios?.find(s => s.id === sideNavItem.id);
+    if (!scenario) {
+      console.error(`Scenario with id: ${sideNavItem.id} not found`);
+      return;
+    }
+
+    fetch(API_URL + scenario.fetchDetails.path).then((r) => r.json())
+      .then((result) => {
+        setScenario(result);
+      })
+  };
   const [isExpanded, setExpanded] = useState(false);
-  return { isExpanded, setExpanded, sideNavItems, header };
+  return { isExpanded, setExpanded, sideNavItems, header, onSidenavSelect, scenario };
 }
 
 export function App() {
-  const { isExpanded, setExpanded, sideNavItems, header } = useApp();
+  const { isExpanded, setExpanded, sideNavItems, header, onSidenavSelect, scenario } = useApp();
   return (
     <div className={gridContainerClass}>
       <div className={gridHeaderClass}>
@@ -58,12 +72,11 @@ export function App() {
         />
       </div>
       <div className={gridSideNavClass}>
-        <UiSideNav open={isExpanded} items={sideNavItems} />
+        <UiSideNav open={isExpanded} items={sideNavItems} onSelect={onSidenavSelect} />
       </div>
       <div className={gridContentClass}>
         <Box component="main" sx={{ width: '100%', height: '100%' }}>
-          <div> asd </div>
-          <div> asd </div>
+          <div> {JSON.stringify(scenario)} </div>
         </Box>
       </div>
     </div>

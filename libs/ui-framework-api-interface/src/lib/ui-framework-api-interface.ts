@@ -3,3 +3,4 @@ export interface ApiResponse {
 }
 
 export const API_URL = "/api";
+export const SCENARIO_URL ="/scenario";

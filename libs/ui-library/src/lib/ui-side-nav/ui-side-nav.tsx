@@ -16,6 +16,7 @@ import { IconType, IIcon, Nullable } from '@ui-solution/ui-framework-api-interfa
 export interface ISideNavItem {
   label: string;
   icon: IIcon;
+  id: string;
 }
 interface ISideNav {
   items: ISideNavItem;
@@ -26,7 +27,7 @@ interface ISideNav {
 export interface UiSideNavProps {
   open: boolean;
   items: Nullable<ISideNavItem[]>;
-  // onSelect: (selectedItem: ) => void;
+  onSelect: (selectedItem: ISideNavItem) => void;
 }
 
 const drawerWidth = 240;
@@ -72,13 +73,14 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export function UiSideNav({open, items}: UiSideNavProps) {
+export function UiSideNav({open, items, onSelect}: UiSideNavProps) {
   return (
     <Drawer variant="permanent" open={open}>
         <List>
           {items?.map(({label, icon}, index) => (
             <ListItem key={label} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
+                onClick={() => onSelect(items[index])}
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',

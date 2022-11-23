@@ -9,17 +9,19 @@ export function appBuilder () {
       scenarios: [
         {
           fetchDetails: {
-            path: "/scenarios/emails-received"
+            path: "/scenario/emails-received"
           },
           icon: {icon: IconType.inbox, size: IconSize.small},
-          label: "Inbox"
+          label: "Inbox",
+          id: "1"
         },
         {
           fetchDetails: {
-            path: "/scenarios/emails-sent"
+            path: "/scenario/emails-sent"
           },
           icon: {icon: IconType.mail, size: IconSize.small},
-          label: "Sent"
+          label: "Sent",
+          id: "2"
         }
       ]
     }

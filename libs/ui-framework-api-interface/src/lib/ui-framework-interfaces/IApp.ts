@@ -17,6 +17,7 @@ export interface IScenario {
   icon: IIcon;
   label: string;
   fetchDetails: IFetchDetails;
+  id: string;
 }
 
 export interface IFetchDetails {
