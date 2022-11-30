@@ -1,19 +1,17 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import styles from './app.module.scss';
-import NxWelcome from './nx-welcome';
 import { ISideNavItem, UiHeader, UiSideNav } from '@ui-solution/ui-library';
 
-import { Route, Routes, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import {
   API_URL,
-  ApiResponse,
   IApp,
   IScenario,
   IHeader,
 } from '@ui-solution/ui-framework-api-interface';
 import Box from '@mui/material/Box';
-import { response } from 'express';
+import { Outlet, useNavigate } from 'react-router-dom';
+
 
 const {
   'grid-container': gridContainerClass,
@@ -26,7 +24,7 @@ function useApp() {
   const [sideNavItems, setSideNavItems] = useState<ISideNavItem[]>();
   const [header, setHeader] = useState<IHeader>();
   const [scenarios, setScenarios] = useState<IScenario[]>();
-  const [scenario, setScenario] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(API_URL)
@@ -51,17 +49,14 @@ function useApp() {
       return;
     }
 
-    fetch(API_URL + scenario.fetchDetails.path).then((r) => r.json())
-      .then((result) => {
-        setScenario(result);
-      })
+    navigate(scenario.fetchDetails.path);
   };
   const [isExpanded, setExpanded] = useState(false);
-  return { isExpanded, setExpanded, sideNavItems, header, onSidenavSelect, scenario };
+  return { isExpanded, setExpanded, sideNavItems, header, onSidenavSelect };
 }
 
 export function App() {
-  const { isExpanded, setExpanded, sideNavItems, header, onSidenavSelect, scenario } = useApp();
+  const { isExpanded, setExpanded, sideNavItems, header, onSidenavSelect } = useApp();
   return (
     <div className={gridContainerClass}>
       <div className={gridHeaderClass}>
@@ -76,7 +71,7 @@ export function App() {
       </div>
       <div className={gridContentClass}>
         <Box component="main" sx={{ width: '100%', height: '100%' }}>
-          <div> {JSON.stringify(scenario)} </div>
+          <Outlet />
         </Box>
       </div>
     </div>
