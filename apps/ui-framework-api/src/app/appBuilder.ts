@@ -1,4 +1,4 @@
-import { IApp, IconSize, IconType } from "@ui-solution/ui-framework-api-interface";
+import { ActionType, IApp, IconSize, IconType, NavigationInstructionType } from "@ui-solution/ui-framework-api-interface";
 
 export function appBuilder () {
   const app: IApp = {
@@ -13,7 +13,11 @@ export function appBuilder () {
           },
           icon: {icon: IconType.inbox, size: IconSize.small},
           label: "Inbox",
-          id: "1"
+          id: "1",
+          action: {
+            type: ActionType.navigation,
+            instructions: [{ type: NavigationInstructionType.scenario, params: ['emails-received']}]
+          }
         },
         {
           fetchDetails: {
@@ -21,7 +25,11 @@ export function appBuilder () {
           },
           icon: {icon: IconType.mail, size: IconSize.small},
           label: "Sent",
-          id: "2"
+          id: "2",
+          action: {
+            type: ActionType.navigation,
+            instructions: [{ type: NavigationInstructionType.scenario, params: ['emails-sent'] }]
+          }
         }
       ]
     }

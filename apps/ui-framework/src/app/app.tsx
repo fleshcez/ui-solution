@@ -2,7 +2,7 @@
 import styles from './app.module.scss';
 import { ISideNavItem, UiHeader, UiSideNav } from '@ui-solution/ui-library';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import {
   API_URL,
   IApp,
@@ -10,7 +10,8 @@ import {
   IHeader,
 } from '@ui-solution/ui-framework-api-interface';
 import Box from '@mui/material/Box';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import { RootService, RootServiceContext } from './services/root-service';
 
 
 const {
@@ -24,7 +25,7 @@ function useApp() {
   const [sideNavItems, setSideNavItems] = useState<ISideNavItem[]>();
   const [header, setHeader] = useState<IHeader>();
   const [scenarios, setScenarios] = useState<IScenario[]>();
-  const navigate = useNavigate();
+  const rootService = useContext(RootServiceContext);
 
   useEffect(() => {
     fetch(API_URL)
@@ -49,7 +50,7 @@ function useApp() {
       return;
     }
 
-    navigate(scenario.fetchDetails.path);
+    rootService?.actionHandler.execute({action: scenario.action});
   };
   const [isExpanded, setExpanded] = useState(false);
   return { isExpanded, setExpanded, sideNavItems, header, onSidenavSelect };
@@ -76,6 +77,12 @@ export function App() {
       </div>
     </div>
   );
+}
+
+export function AppWithService() {
+  return <RootService>
+    <App />
+  </RootService>
 }
 
 export default App;
