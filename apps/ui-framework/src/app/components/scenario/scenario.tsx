@@ -1,9 +1,18 @@
-import { API_URL } from "@ui-solution/ui-framework-api-interface";
 import { LoaderFunctionArgs, useLoaderData } from "react-router-dom";
-import { scenarioId, scenarioRoute } from "../../app-router";
+import { scenarioId, } from "../../app-router";
+import { IScenarioResolver } from "./scenario-resolver";
 
-export async function loader({params}: LoaderFunctionArgs) {
-    return fetch(`${API_URL}/${scenarioRoute}/${params[scenarioId]}`).then((r) => r.json());
+export interface IScenarioLoaderArgs extends LoaderFunctionArgs {
+    scenarioResolver: IScenarioResolver;
+}
+
+export async function loader({params, scenarioResolver}: IScenarioLoaderArgs) {
+    const id = params[scenarioId];
+    if (!id) {
+        console.error("No id found for scenarioId param");
+        return;
+    }
+    return scenarioResolver.getScenario(id);
 }
 
 export function Scenario() {
