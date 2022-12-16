@@ -6,7 +6,7 @@ import { useState, useEffect, useContext } from 'react';
 import {
   API_URL,
   IApp,
-  IScenario,
+  IScenarioDescription,
   IHeader,
 } from '@ui-solution/ui-framework-api-interface';
 import Box from '@mui/material/Box';
@@ -24,7 +24,7 @@ const {
 function useApp() {
   const [sideNavItems, setSideNavItems] = useState<ISideNavItem[]>();
   const [header, setHeader] = useState<IHeader>();
-  const [scenarios, setScenarios] = useState<IScenario[]>();
+  const [scenarios, setScenarios] = useState<IScenarioDescription[]>();
   const rootService = useContext(RootServiceContext);
 
   useEffect(() => {
@@ -32,8 +32,8 @@ function useApp() {
       .then((r) => r.json())
       .then((result) => {
         const res = result as IApp;
-        const scenarios: IScenario[] = res.configuration.scenarios;
-        setScenarios(res.configuration.scenarios);
+        const scenarios: IScenarioDescription[] = res.configuration.scenarioDescriptions;
+        setScenarios(res.configuration.scenarioDescriptions);
         setHeader(res.configuration.header);
         setSideNavItems(
           scenarios.map(

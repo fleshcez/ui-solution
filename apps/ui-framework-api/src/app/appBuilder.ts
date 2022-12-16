@@ -6,7 +6,7 @@ export function appBuilder () {
       header: {
         title: "Ui Solution"
       },
-      scenarios: [
+      scenarioDescriptions: [
         {
           fetchDetails: {
             path: "/scenario/emails-received"
