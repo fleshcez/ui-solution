@@ -18,14 +18,15 @@ export class ActionHandler {
         this._navigate = navigate;
     }
 
-    public execute({action}: IActionHandlerProps) {
-        this._execute(action);
+    public execute(props: IActionHandlerProps) {
+        this._execute(props);
     }
 
-    private _execute(action: IAction) {
+    private _execute(props: IActionHandlerProps) {
+        const { action } = props;
         switch(action.type) {
             case ActionType.navigation:
-                return navigate({navigate: this._navigate, action: action as INavigate});
+                return navigate({...props, navigate: this._navigate, action: action as INavigate});
                 break;
         }
     }

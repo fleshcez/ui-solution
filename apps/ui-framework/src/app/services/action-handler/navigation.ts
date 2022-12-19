@@ -1,12 +1,27 @@
-import { INavigate } from "@ui-solution/ui-framework-api-interface";
+import { INavigate, Nullable } from "@ui-solution/ui-framework-api-interface";
 import { NavigateFunction } from "react-router-dom";
+import { IActionHandlerProps } from "./action-handler";
 
-
-export interface INavigateDeps {
+export interface INavigateProps extends IActionHandlerProps {
     action: INavigate;
     navigate: NavigateFunction;
+    options?: {
+        startingPath: string;
+    }
 }
 
-export function execute({navigate, action}: INavigateDeps): Promise<void> {
-    return Promise.resolve(navigate(`${action.instructions[0].type}/${action.instructions[0].params && action.instructions[0].params[0]}`));
+export function execute({navigate, action, options}: INavigateProps): Promise<void> {
+    const instructionsClone = [...action.instructions];
+    const firstInstruction = instructionsClone.shift();
+
+    if (!firstInstruction) {
+        throw Error(`No navigation instruction provided for action: ${action}`);
+    }
+    const startPath = options?.startingPath ?? "";
+
+    return Promise.resolve(navigate(`${startPath}${firstInstruction.type}${parseParams(firstInstruction.params)}`, {state: {instructions: instructionsClone}}));
+}
+
+function parseParams(params: Nullable<string[]>) {
+    return params ? params.reduce((acc, cur) => `${acc}/${cur}`, "") : "";
 }

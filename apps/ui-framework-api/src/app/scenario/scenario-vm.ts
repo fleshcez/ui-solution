@@ -7,9 +7,11 @@ export const emailsSentScenario: IScenario = {
     panels: [
       {
         type: PanelType.form,
+        isVisible: '$model.isListPanelVisible'
       },
       {
         type: PanelType.list,
+        isVisible: '$model.isFormPanelVisible'
       },
     ],
   };

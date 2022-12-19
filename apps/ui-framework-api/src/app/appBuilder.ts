@@ -16,7 +16,7 @@ export function appBuilder () {
           id: "1",
           action: {
             type: ActionType.navigation,
-            instructions: [{ type: NavigationInstructionType.scenario, params: ['emails-received']}]
+            instructions: [{ type: NavigationInstructionType.scenario, params: ['emails-received']}, {type: NavigationInstructionType.panel, params: ['list-panel']}]
           }
         },
         {

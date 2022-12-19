@@ -1,6 +1,6 @@
 const emailsSentScenarioModel = {
-    isListPanelVisible: false,
-    isFormPanelVisible: true,
+    isListPanelVisible: true,
+    isFormPanelVisible: false,
     title: 'Your sent emails'
 }
 
@@ -14,4 +14,6 @@ export function getScenarioModel(scenarioId: string) {
     } else if (scenarioId === "emails-received") {
         return emailsReceivedScenarioModel;
     }
+
+    return undefined;
 }

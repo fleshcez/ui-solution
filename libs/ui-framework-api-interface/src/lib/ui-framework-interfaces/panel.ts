@@ -1,3 +1,5 @@
+import { Expression } from "./common";
+
 export enum PanelType {
     form = "form",
     list = "list"
@@ -5,4 +7,5 @@ export enum PanelType {
   
   export interface IPanel {
     type: PanelType;
+    isVisible?: Expression<boolean>;
   }
