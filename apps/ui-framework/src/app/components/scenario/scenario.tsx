@@ -67,9 +67,10 @@ function useScenario(scenario: IScenario, model: Record<string, unknown>) {
         type: ActionType.navigation,
         instructions: [...instructions],
       };
+      console.log("execute navigation");
       rootService?.actionHandler.execute({
         action: navigate,
-        options: { startingPath: location.pathname + '/' },
+        options: { startingPath: location.pathname },
       } as INavigateProps);
     }
   }, [instructions]);
